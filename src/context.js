@@ -9,7 +9,8 @@ class TourProvider extends Component {
     sortedTours: [],
     loading: true,
     price: 0,
-    minPrice: 0
+    minPrice: 0,
+    authUser: null
   };
 
   componentDidMount() {

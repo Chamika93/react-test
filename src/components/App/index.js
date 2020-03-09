@@ -13,8 +13,9 @@ import "./index.css";
 import { TourProvider } from "../../context";
 import Landing from "../../pages/Landing";
 import Tours from "../../pages/Tours";
-import SIngleTour from "../../pages/SingleTour";
 import SingleTour from "../../pages/SingleTour";
+import { AuthUserContext } from "../../components/Session";
+import { withAuthentication } from "../Session";
 
 class App extends Component {
   constructor(props) {
@@ -59,4 +60,4 @@ class App extends Component {
   }
 }
 
-export default withFirebase(App);
+export default withAuthentication(App);

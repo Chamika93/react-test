@@ -4,12 +4,15 @@ import SignOutButton from "../SignOut";
 import * as ROUTES from "../../constants/routes";
 import { Button } from "semantic-ui-react";
 import logo from "../../images/logo.png";
+import { AuthUserContext } from "../Session";
 
 const Navigation = ({ authUser }) => (
-  <div>{authUser ? <Test /> : <TestN />}</div>
+  <div>
+    {authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />}
+  </div>
 );
 
-const Test = () => (
+const NavigationAuth = props => (
   <nav className="navbar">
     <div className="nav-center">
       <div className="nav-header">
@@ -22,7 +25,7 @@ const Test = () => (
           <Link to={ROUTES.HOME}>Home</Link>
         </li>
         <li className="single-link">
-          <Link to="/">Chamika</Link>
+          <Link to={ROUTES.ACCOUNT}>Account</Link>
         </li>
         <li className="single-link">
           <SignOutButton />
@@ -32,7 +35,7 @@ const Test = () => (
   </nav>
 );
 
-const TestN = () => (
+const NavigationNonAuth = () => (
   <nav className="navbar">
     <div className="nav-center">
       <div className="nav-header">
@@ -56,24 +59,4 @@ const TestN = () => (
   </nav>
 );
 
-const NavigationAuth = () => (
-  <ul>
-    <li>
-      <Link to={ROUTES.HOME}>Home</Link>
-    </li>
-    <li>
-      <Link to={ROUTES.ACCOUNT}>Account</Link>
-    </li>
-    <li>
-      <SignOutButton />
-    </li>
-  </ul>
-);
-const NavigationNonAuth = () => (
-  <ul>
-    <li>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
-);
 export default Navigation;
