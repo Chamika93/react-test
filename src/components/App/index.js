@@ -10,6 +10,11 @@ import Banner from "../Banner";
 import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Firebase";
 import "./index.css";
+import { TourProvider } from "../../context";
+import Landing from "../../pages/Landing";
+import Tours from "../../pages/Tours";
+import SIngleTour from "../../pages/SingleTour";
+import SingleTour from "../../pages/SingleTour";
 
 class App extends Component {
   constructor(props) {
@@ -32,18 +37,24 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          <Navigation authUser={this.state.authUser} />
-          <hr />
-          <Route exact path={ROUTES.LANDING} component={Banner} />
-          <Route path={ROUTES.HOME} component={HomePage} />
-          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-          <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-        </div>
-      </Router>
+      <TourProvider>
+        <Router>
+          <div>
+            <Navigation authUser={this.state.authUser} />
+            <hr />
+            <Route exact path={ROUTES.LANDING} component={Landing} />
+            <Route path={ROUTES.HOME} component={Tours} />
+            <Route path="/tour/:slug" component={SingleTour} />
+            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+            <Route
+              path={ROUTES.PASSWORD_FORGET}
+              component={PasswordForgetPage}
+            />
+            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+          </div>
+        </Router>
+      </TourProvider>
     );
   }
 }

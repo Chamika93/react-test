@@ -3,20 +3,16 @@ import faker from "faker";
 import React, { Component } from "react";
 import { Search, Grid, Header, Segment } from "semantic-ui-react";
 import { Card, Icon, Image } from "semantic-ui-react";
+import { TourContext } from "../../context";
 
 let source;
 let testd = [];
-/*let source = _.times(5, () => ({
-  title: faker.company.companyName(),
-  description: faker.company.catchPhrase(),
-  image: faker.internet.avatar(),
-  price: faker.finance.amount(0, 100, 2, "$")
-})); */
 
 const initialState = { isLoading: false, results: [], value: "" };
 
 export default class Home extends Component {
-  state = initialState;
+  static contextType = TourContext;
+  state = { ...this.context };
 
   handleResultSelect = (e, { result }) =>
     this.setState({ value: result.title });
@@ -25,19 +21,19 @@ export default class Home extends Component {
     this.setState({ isLoading: true, value });
 
     setTimeout(() => {
-      if (this.state.value.length < 1) return this.setState(initialState);
+      // if (this.state.value.length < 1) return this.setState(initialState);
 
       const re = new RegExp(_.escapeRegExp(this.state.value), "i");
       const isMatch = result => re.test(result.title);
 
       this.setState({
         isLoading: false,
-        results: _.filter(source, isMatch)
+        results: _.filter(this.state.tours, isMatch)
       });
     }, 300);
   };
 
-  componentDidMount() {
+  /* componentDidMount() {
     fetch(
       "https://www.triposo.com/api/20190906/tour.json?location_ids=Melbourne",
       {
@@ -61,7 +57,7 @@ export default class Home extends Component {
         //this.setState({ results: data.results });
       })
       .catch(console.log);
-  }
+  } */
 
   render() {
     const { isLoading, value, results } = this.state;
